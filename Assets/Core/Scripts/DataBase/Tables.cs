@@ -9,6 +9,8 @@ public class User
 
     public string FirstName { get; set; }
     public string LastName { get; set; }
+    public string Login { get; set; }
+    public string Password { get; set; }
 }
 
 [Serializable]
@@ -28,11 +30,10 @@ public class Lot
 
     public string Name { get; set; }
     public string Description { get; set; }
+    public int? Bet { get; set; }
     public string Status { get; set; }
-
+    public DateTime? EndData { get; set; }
     public int CreatorUserId { get; set; }
-    public int BidderUserId { get; set; }
+    public int? BidderUserId { get; set; }
     public int CategoryId { get; set; }
-
-    public int IconIndex { get; set; } // если используешь иконки
 }
