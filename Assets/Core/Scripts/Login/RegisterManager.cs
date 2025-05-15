@@ -76,6 +76,11 @@ public class RegisterManager : MonoBehaviour
         if (success)
         {
             ShowMessage("Регистрация прошла успешно!", Color.green);
+
+            _loginField.text = "";
+            _passwordField.text = "";
+            _firstNameField.text = "";
+            _lastNameField.text = "";
         }
         else
         {

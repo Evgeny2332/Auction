@@ -8,9 +8,11 @@ public class LotCreator : MonoBehaviour
     [SerializeField] private GameObject _lotPrefab;
     [SerializeField] private Transform _lotContainer;
 
+    [SerializeField] private BetLot _betLot;
+
     private DatabaseManager _databaseManager;
 
-    private async void Start()
+    private async void OnEnable()
     {
         _databaseManager = FindObjectOfType<DatabaseManager>();
         await LoadOpenLotsAsync();
@@ -18,6 +20,12 @@ public class LotCreator : MonoBehaviour
 
     private async UniTask LoadOpenLotsAsync()
     {
+        // Удаляем все старые слоты
+        foreach (Transform child in _lotContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
         List<Lot> openLots = await _databaseManager.GetLotsAsync();
 
         if (openLots == null || openLots.Count == 0)
@@ -38,7 +46,6 @@ public class LotCreator : MonoBehaviour
                 continue;
             }
 
-
             CreateLotSlot(lot);
         }
     }
@@ -55,12 +62,18 @@ public class LotCreator : MonoBehaviour
                 lot.Name,
                 "Категория: " + category.Name,
                 "Последняя ставка: " + (lot.Bet ?? 0),
-                lot.EndData
+                lot.EndData,
+                lot
             );
         }
         else
         {
             Debug.LogWarning("Компонент LotSlot не найден на перфабе!");
         }
+    }
+
+    public void CloseBet()
+    {
+        LoadOpenLotsAsync();
     }
 }

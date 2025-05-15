@@ -9,11 +9,14 @@ public class LotSlot : MonoBehaviour
     [SerializeField] private Text _lastBet;
     [SerializeField] private Text _endData;
 
-    public void Init(string name, string category, string lastBet, DateTime? endTime)
+    private Lot _lot;
+
+    public void Init(string name, string category, string lastBet, DateTime? endTime, Lot lot)
     {
         _name.text = name;
         _category.text = category;
         _lastBet.text = lastBet;
+        _lot = lot;
 
         if (endTime.HasValue)
         {
@@ -25,5 +28,11 @@ public class LotSlot : MonoBehaviour
         {
             _endData.text = "Нет данных";
         }
+    }
+
+    public void OpenBetLot()
+    {
+        BetLot.Instance.SetUserId(UserSession.Instance.GetUser().Id ?? 0);
+        BetLot.Instance.Activate(_lot);
     }
 }
