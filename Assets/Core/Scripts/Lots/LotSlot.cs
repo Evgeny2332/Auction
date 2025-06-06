@@ -8,10 +8,11 @@ public class LotSlot : MonoBehaviour
     [SerializeField] private Text _category;
     [SerializeField] private Text _lastBet;
     [SerializeField] private Text _endData;
+    [SerializeField] private GameObject _betIcon;
 
     private Lot _lot;
 
-    public void Init(string name, string category, string lastBet, DateTime? endTime, Lot lot)
+    public void Init(string name, string category, string lastBet, DateTime? endTime, Lot lot, int currentUserId)
     {
         _name.text = name;
         _category.text = category;
@@ -27,6 +28,11 @@ public class LotSlot : MonoBehaviour
         else
         {
             _endData.text = "Нет данных";
+        }
+
+        if (_betIcon != null)
+        {
+            _betIcon.SetActive(_lot.BidderUserId == currentUserId);
         }
     }
 

@@ -101,20 +101,19 @@ public class SupabaseConnector
         }
     }
 
-    // Методы под таблицы
     public UniTask<List<User>> GetUsersAsync() => FetchTableAsync<User>("Users");
-    public UniTask<List<Category>> GetCategoriesAsync() => FetchTableAsync<Category>("Category");
+    public UniTask<List<Category>> GetCategoriesAsync() => FetchTableAsync<Category>("Categories");
     public UniTask<List<Lot>> GetLotsAsync() => FetchTableAsync<Lot>("Lots");
 
     public UniTask<bool> AddUserAsync(User user) => InsertRecordAsync("Users", user);
-    public UniTask<bool> AddCategoryAsync(Category category) => InsertRecordAsync("Category", category);
+    public UniTask<bool> AddCategoryAsync(Category category) => InsertRecordAsync("Categories", category);
     public UniTask<bool> AddLotAsync(Lot lot) => InsertRecordAsync("Lots", lot);
 
     public UniTask<bool> UpdateUserAsync(User user) =>
         UpdateRecordAsync<User>("Users", user.Id ?? 0, user);
 
     public UniTask<bool> UpdateCategoryAsync(Category category) =>
-        UpdateRecordAsync<Category>("Category", category.Id ?? 0, category);
+        UpdateRecordAsync<Category>("Categories", category.Id ?? 0, category);
 
     public UniTask<bool> UpdateLotAsync(Lot lot)
     {

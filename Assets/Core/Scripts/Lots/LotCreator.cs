@@ -55,15 +55,19 @@ public class LotCreator : MonoBehaviour
     {
         GameObject lotSlotObject = Instantiate(_lotPrefab, _lotContainer);
         LotSlot lotSlot = lotSlotObject.GetComponent<LotSlot>();
+
         if (lotSlot != null)
         {
             Category category = await _databaseManager.GetCategoryByIdAsync(lot.CategoryId);
+            int currentUserId = UserSession.Instance.GetUser().Id ?? 0;
+
             lotSlot.Init(
                 lot.Name,
                 "Категория: " + category.Name,
                 "Последняя ставка: " + (lot.Bet ?? 0),
                 lot.EndData,
-                lot
+                lot,
+                currentUserId
             );
         }
         else
@@ -71,6 +75,7 @@ public class LotCreator : MonoBehaviour
             Debug.LogWarning("Компонент LotSlot не найден на перфабе!");
         }
     }
+
 
     public void CloseBet()
     {
